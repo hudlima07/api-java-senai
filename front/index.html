@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Professores - Instituto EduHud</title>
+    <style>
+        :root {
+            --orange: #ff7300;
+            --orange-hover: #e06500;
+            --black: #1a1a1a;
+            --black-light: #2d2d2d;
+            --gray: #6c757d;
+            --bg-body: #f4f5f7;
+            --bg-card: #ffffff;
+            --danger: #dc3545;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--bg-body);
+            color: var(--black);
+            padding: 20px 30px; 
+            max-width: 1000px; 
+            margin: 0 auto; 
+        }
+        
+        /* Cabeçalho */
+        .top-header {
+            background-color: var(--black);
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        .top-header:hover {
+            transform: translateY(-2px);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .logo-icon {
+            font-size: 34px;
+            margin-right: 12px;
+            background-color: var(--orange);
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 0 10px rgba(255, 115, 0, 0.4);
+        }
+        .logo-text {
+            color: #ffffff;
+        }
+        .logo-text .highlight {
+            color: var(--orange);
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 22px;
+        }
+        
+        /* Formulário */
+        .container { 
+            background-color: var(--bg-card); 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s ease;
+        }
+        .container:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .form-group { 
+            margin-bottom: 15px; 
+            display: flex;
+            align-items: center;
+        }
+        label { 
+            width: 100px; 
+            font-weight: 600; 
+        }
+        input { 
+            padding: 10px 15px; 
+            width: 100%;
+            max-width: 400px; 
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            background-color: #f8fafc;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--orange);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(255, 115, 0, 0.15);
+        }
+        
+        /* Botões */
+        .btn-group {
+            margin-top: 25px;
+            padding-left: 100px;
+        }
+        button { 
+            padding: 10px 20px; 
+            cursor: pointer; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            margin-right: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s facil;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Efeito Hover nos botões (passar o rato) */
+        button:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Efeito Active nos botões (clicar) */
+        button:active { 
+            transform: translateY(1px) scale(0.96); 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-salvar { background-color: var(--orange); color: white; }
+        .btn-salvar:hover { background-color: var(--orange-hover); }
+        
+        .btn-limpar { background-color: var(--black-light); }
+        .btn-limpar:hover { background-color: #404040; }
+        
+        .btn-editar { background-color: var(--black); padding: 8px 14px; font-size: 13px; }
+        .btn-editar:hover { background-color: var(--black-light); }
+        
+        .btn-deletar { background-color: transparent; color: var(--danger); border: 2px solid var(--danger); padding: 6px 12px; font-size: 13px; box-shadow: none; }
+        .btn-deletar:hover { background-color: var(--danger); color: white; }
+
+        /* Tabela */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { padding: 16px; text-align: left; border-bottom: 1px solid #edf2f7; }
+        
+        th { 
+            background-color: var(--black); 
+            color: var(--orange); 
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        tr { transition: all 0.3s ease; }
+        tr:last-child td { border-bottom: none; }
+        
+        /* Efeito na linha da tabela ao passar o rato */
+        tr:hover { 
+            background-color: #fff3e6; /* Laranja muito claro */
+            transform: scale(1.01);
+            box-shadow: 0 2px 8px rgba(255, 115, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="logo">
+            <span class="logo-icon">🎓</span>
+            <span class="logo-text">Instituto <span class="highlight">EduHud</span></span>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Painel de Gestão</h2>
+        <h3 id="form-titulo" style="margin-top: 0; margin-bottom: 20px; font-size: 16px; color: var(--orange);">Cadastrar Novo Professor</h3>
+        <input type="hidden" id="idProfessor">
+        
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required placeholder="Ex: João da Silva">
+        </div>
+        <div class="form-group">
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" required placeholder="000.000.000-00">
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" required placeholder="joao@exemplo.com">
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-salvar" onclick="salvarProfessor()">Salvar Registo</button>
+            <button class="btn-limpar" onclick="limparFormulario()">Limpar Campos</button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>E-mail</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-corpo">
+                <!-- Dados carregados via JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:8080/professor';
+
+        window.onload = listarProfessores;
+
+        async function listarProfessores() {
+            try {
+                const response = await fetch(`${BASE_URL}/listar`);
+                const professores = await response.json();
+                
+                const tbody = document.getElementById('tabela-corpo');
+                tbody.innerHTML = ''; 
+
+                professores.forEach(prof => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${prof.idProfessor}</strong></td>
+                        <td>${prof.nome}</td>
+                        <td>${prof.cpf}</td>
+                        <td>${prof.email}</td>
+                        <td>
+                            <button class="btn-editar" onclick="buscarPorId(${prof.idProfessor})">Editar</button>
+                            <button class="btn-deletar" onclick="deletarProfessor(${prof.idProfessor})">Deletar</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error("Erro ao listar:", error);
+            }
+        }
+
+        async function salvarProfessor() {
+            const id = document.getElementById('idProfessor').value;
+            const nome = document.getElementById('nome').value;
+            const cpf = document.getElementById('cpf').value;
+            const email = document.getElementById('email').value;
+
+            const professor = { nome, cpf, email };
+            const metodo = id ? 'PUT' : 'POST';
+            const url = id ? `${BASE_URL}/${id}` : `${BASE_URL}/cadastrar`;
+
+            try {
+                const response = await fetch(url, {
+                    method: metodo,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(professor)
+                });
+
+                if (response.ok) {
+                    const msg = await response.json();
+                    alert(msg.mensagem || "Operação realizada com sucesso!");
+                    limparFormulario();
+                    listarProfessores();
+                } else {
+                    alert("Erro ao salvar o professor.");
+                }
+            } catch (error) {
+                console.error("Erro ao salvar:", error);
+            }
+        }
+
+        async function deletarProfessor(id) {
+            if (!confirm("Tem a certeza que deseja deletar este professor?")) return;
+
+            try {
+                const response = await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
+                const dados = await response.json();
+                
+                if (response.ok) {
+                    alert(dados.mensagem);
+                    listarProfessores();
+                } else {
+                    alert(dados.mensagem || "Erro ao deletar.");
+                }
+            } catch (error) {
+                console.error("Erro ao deletar:", error);
+            }
+        }
+
+        async function buscarPorId(id) {
+            try {
+                const response = await fetch(`${BASE_URL}/${id}`);
+                const prof = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('idProfessor').value = prof.idProfessor;
+                    document.getElementById('nome').value = prof.nome;
+                    document.getElementById('cpf').value = prof.cpf;
+                    document.getElementById('email').value = prof.email;
+                    document.getElementById('form-titulo').innerText = "Editar Professor";
+                } else {
+                    alert(prof.mensagem);
+                }
+            } catch (error) {
+                console.error("Erro ao buscar:", error);
+            }
+        }
+
+        function limparFormulario() {
+            document.getElementById('idProfessor').value = '';
+            document.getElementById('nome').value = '';
+            document.getElementById('cpf').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('form-titulo').innerText = "Cadastrar Novo Professor";
+        }
+    </script>
+</body>
+</html>
