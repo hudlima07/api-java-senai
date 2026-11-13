@@ -16,11 +16,22 @@ public class ProfessorModel {
     @Column
     private String email;
 
+    @Column (nullable = false)
+    private String senha;
+
+
 
     public ProfessorModel(){
 
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     public Long getIdProfessor() {
         return idProfessor;
